@@ -35,6 +35,7 @@ def index():
     return render_template("index.html")
 
 mq.start()
+print('connecting to lokinet via {}'.format(config.lokinet_endpoint))
 conn = mq.connect_remote(config.lokinet_endpoint)
-print('connected to lokinet')
+print("binding webserver to port {}".format(config.port))
 socketio.run(app, port=config.port)

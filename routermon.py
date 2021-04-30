@@ -11,7 +11,7 @@ import config
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config.api_secret
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins=config.allowed_origins)
 
 mq = MQ()
 mq.max_message_size = 1024 * 1024 * 10

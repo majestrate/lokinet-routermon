@@ -1,9 +1,12 @@
 from datetime import timedelta
 import json
 from flask import Flask, render_template
-from flask_socketio import SocketIO, emit, send
+from flask_socketio import SocketIO
 
 import gevent
+import gevent.monkey
+
+gevent.monkey.patch_all()
 
 from pyoxenmq import OxenMQ as MQ
 
@@ -28,7 +31,13 @@ def update_all():
         except Exception as ex:
             print("error: {}".format(ex))
 
-mq.add_timer(timedelta(seconds=1), lambda : update_all())
+
+def loop():
+    while True:
+        gevent.sleep(1)
+        update_all()
+
+gevent.Greenlet.spawn(loop)
 
 @app.route("/")
 def index():

@@ -1,23 +1,20 @@
 <!doctype html>
 <html>
   <head>
-    <script src="static/app.js" type="text/javascript" charset="utf-8" />
+    <script src="static/app.js" type="text/javascript" charset="utf-8"  ></script>
+    <script src="static/socket.io.min.js" type="text/javascript" charset="utf-8" ></script>
   </head>
   <body>
     <div id="root">
-
+      loading initial content...
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
-      if(createApp)
-      {
-        const app = createApp();
-        const socket = io();
-        socket.on('update', function(data) {
-          if(app)
-            app.update(data);
-        });
-      }
+      var socket = io();
+
+      var update  = createApp();
+      socket.on('update', (data) => {
+        update(data);
+      });
     </script>
   </body>
 </html>

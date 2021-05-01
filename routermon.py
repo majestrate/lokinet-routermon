@@ -21,13 +21,27 @@ mq.max_message_size = 1024 * 1024 * 10
 
 conn = None
 
+
+def filter_link_data(link_data):
+    """
+    remove non public peers from link data
+    """
+    if len(link_data['inbound']) > 0:
+        established_sessions = []
+        for peer in link_data['inbound'][0]['sessions']['established']:
+            if not peer['remoteRC']['publicRouter']:
+                continue
+            established_sessions.append(peer)
+        link_data['inbound'][0]['sessions']['established'] = established_sessions
+    return link_data
+
 def update_all():
     global conn
     if conn:
         try:
             req = mq.request_future(conn, "llarp.status")
             jdata = json.loads(req.get()[0])
-            socketio.emit("update", jdata['result']['links'])
+            socketio.emit("update", filter_link_data(jdata['result']['links']))
         except Exception as ex:
             print("error: {}".format(ex))
 

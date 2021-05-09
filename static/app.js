@@ -139,7 +139,7 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
     if(key in sessions)
     {
       drawSessionGraph(sessions[key], samples[key], x_pos, y_pos, h);
-      y_pos += h + 20;
+      y_pos += h;
     }
   }
   
@@ -149,7 +149,7 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
 const createApp = () => {
   let samples = {};
   let root = document.getElementById("root");
-  let config = {width: 20, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
+  let config = {width: 5, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
   config.history = Math.floor(window.innerWidth / config.width);
   return (data) => {
     let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+window.innerHeight});

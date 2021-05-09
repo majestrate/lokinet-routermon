@@ -127,7 +127,7 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
     console.log(tx_path, rx_path);
     svg.appendChild(mknode("path", {stroke: config.txcolor, fill: config.txcolor, d: tx_path, style:"fill-opacity: 0.75"}));
     svg.appendChild(mknode("path", {stroke: config.rxcolor, fill: config.rxcolor, d: rx_path, style:"fill-opacity: 0.75"}));
-    svg.appendChild(mknode("text", {x: start_x, y: start_y}, document.createTextNode(session.ip)));
+    svg.appendChild(mknode("text", {x: start_x, y: start_y}, document.createTextNode(`${session.ip} (${session.name.substr(0, 8)})`)));
     svg.appendChild(mknode("text", {x: start_x, y: start_y + 50}, document.createTextNode("tx: "+make_rate(session.tx))));
     svg.appendChild(mknode("text", {x: start_x, y: start_y + 30}, document.createTextNode("rx: "+make_rate(session.rx))));
   };

@@ -127,9 +127,9 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
     console.log(tx_path, rx_path);
     svg.appendChild(mknode("path", {stroke: config.txcolor, fill: config.txcolor, d: tx_path, style:"fill-opacity: 0.75"}));
     svg.appendChild(mknode("path", {stroke: config.rxcolor, fill: config.rxcolor, d: rx_path, style:"fill-opacity: 0.75"}));
-    svg.appendChild(mknode("text", {x: start_x, y: start_y}, document.createTextNode(`${session.ip} (${session.name.substr(0, 8)})`)));
-    svg.appendChild(mknode("text", {x: start_x, y: start_y + 50}, document.createTextNode("tx: "+make_rate(session.tx))));
-    svg.appendChild(mknode("text", {x: start_x, y: start_y + 30}, document.createTextNode("rx: "+make_rate(session.rx))));
+    svg.appendChild(mknode("text", {x: start_x, y: start_y, fill: config.fgcolor}, document.createTextNode(`${session.ip} (${session.name.substr(0, 8)})`)));
+    svg.appendChild(mknode("text", {x: start_x, y: start_y + 30, fill: config.txcolor}, document.createTextNode("tx: "+make_rate(session.tx))));
+    svg.appendChild(mknode("text", {x: start_x, y: start_y + 45, fill: config.rxcolor}, document.createTextNode("rx: "+make_rate(session.rx))));
   };
   
   const h = height / ( Object.keys(sessions).length +  1);
@@ -149,7 +149,7 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
 const createApp = () => {
   let samples = {};
   let root = document.getElementById("root");
-  let config = {width: 20, history: 60, txcolor: "#0ef", rxcolor: "#d3f"};
+  let config = {width: 20, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
   config.history = Math.floor(window.innerWidth / config.width);
   return (data) => {
     let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+window.innerHeight});

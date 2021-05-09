@@ -98,13 +98,13 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
     const start_y = start_y_pos;
     start_y_pos += h * 2;
 
-    const start_tx = `M ${start_x+width},${start_y}`;
-    const start_rx = `M ${start_x+width},${start_y}`;
+    const start_tx = `M ${start_x+width},${start_y+h}`;
+    const start_rx = `M ${start_x+width},${start_y+h}`;
     let tx_path = start_tx;
     let rx_path = start_rx;
     let index = 0;
     const make_segment = (width, mag) => {
-      return ` q 10,${mag ? 10: 0},${width},${mag}`
+      return ` l ${width},0 l 0,${0-mag}`
     };
     let last_tx = 0;
     let last_rx = 0;
@@ -122,8 +122,8 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
       // svg.appendChild(mknode("rect", {x: start_x_pos, y: (start_y_pos - tx_h), width: width, height: tx_h, fill: config.txcolor}));
       // svg.appendChild(mknode("rect", {x: start_x_pos, y: start_y_pos, width: width, height: rx_h, fill: config.rxcolor}));
     }
-    tx_path += ` q 10,0,${width},${0-last_tx} ${start_tx} z`;
-    rx_path += ` q 10,0,${width},${0-last_rx} ${start_rx} z`;
+    tx_path += ` l 0,${last_tx} ${start_tx} Z`;
+    rx_path += ` l 0,${last_rx} ${start_rx} Z`;
     console.log(tx_path, rx_path);
     svg.appendChild(mknode("path", {stroke: config.txcolor, fill: config.txcolor, d: tx_path, style:"fill-opacity: 0.75"}));
     svg.appendChild(mknode("path", {stroke: config.rxcolor, fill: config.rxcolor, d: rx_path, style:"fill-opacity: 0.75"}));

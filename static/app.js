@@ -136,8 +136,11 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
   for(var key in samples)
   {
     console.log('draw '+key);
-    drawSessionGraph(sessions[key], samples[key], x_pos, y_pos, h);
-    y_pos += h + 20;
+    if(key in sessions)
+    {
+      drawSessionGraph(sessions[key], samples[key], x_pos, y_pos, h);
+      y_pos += h + 20;
+    }
   }
   
   

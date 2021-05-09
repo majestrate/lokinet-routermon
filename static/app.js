@@ -38,8 +38,8 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
     populate(sessions, link.sessions.established);
   
   let x_pos = 10;
-  let y_pos = 50;
   const width = config.width || 10;
+  let y_pos = 10;
   const height = config.heigth || window.innerHeight;
 
   const history = config.history || 30;

@@ -173,8 +173,8 @@ const createApp = () => {
   let config = {width: 5, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
   config.history = Math.floor(window.innerWidth / config.width);
   return (data) => {
-    let h = 30 * (1 + countPeers(data));
-    let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+h});
+    config.height = 30 * (1 + countPeers(data));
+    let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+config.height});
     updateNodes(svg, data.inbound, data.outbound, samples, config);
     const old = document.getElementById("graph");
     if(old) old.remove();

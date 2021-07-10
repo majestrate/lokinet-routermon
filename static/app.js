@@ -162,7 +162,9 @@ const countPeers = (data) => {
       sessions[key] = 0;
     }
   }
-  return sessions.length;
+  var keys = [];
+  for(var k in sessions) keys.push(k);
+  return keys.length;
 }
 
 const createApp = () => {
@@ -171,7 +173,7 @@ const createApp = () => {
   let config = {width: 5, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
   config.history = Math.floor(window.innerWidth / config.width);
   return (data) => {
-    let h = 30 * countPeers(data);
+    let h = 30 * (1 + countPeers(data));
     let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+h});
     updateNodes(svg, data.inbound, data.outbound, samples, config);
     const old = document.getElementById("graph");

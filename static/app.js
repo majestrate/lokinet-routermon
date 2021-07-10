@@ -150,16 +150,16 @@ const countPeers = (data) => {
   let sessions = {};
   for(var link of data.inbound)
   {
-    for (var key in list)
+    for (var key in link.sessions.established)
     {
-      sessions[keys] = 0;
+      sessions[key] = 0;
     }
   }
   for(var link of data.outbound)
   {
-    for (var key in list)
+    for (var key in link.sessions.established)
     {
-      sessions[keys] = 0;
+      sessions[key] = 0;
     }
   }
   return sessions.length;

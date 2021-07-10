@@ -146,13 +146,33 @@ const updateNodes = (svg, inbound, outbound, samples, config) => {
   
 };
 
+const countPeers = (data) => {
+  let sessions = {};
+  for(var link of data.inbound)
+  {
+    for (var key in list)
+    {
+      sessions[keys] = 0;
+    }
+  }
+  for(var link of data.outbound)
+  {
+    for (var key in list)
+    {
+      sessions[keys] = 0;
+    }
+  }
+  return sessions.length;
+}
+
 const createApp = () => {
   let samples = {};
   let root = document.getElementById("root");
   let config = {width: 5, history: 60, txcolor: "#0ef", rxcolor: "#d3f", fgcolor: "#ddd", bgcolor: "#333"};
   config.history = Math.floor(window.innerWidth / config.width);
   return (data) => {
-    let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+window.innerHeight});
+    let h = countPeers(data) * 30;
+    let svg = mknode("svg", {id: "graph", version: "1.1", viewBox: "0 0 "+window.innerWidth+" "+h});
     updateNodes(svg, data.inbound, data.outbound, samples, config);
     const old = document.getElementById("graph");
     if(old) old.remove();
